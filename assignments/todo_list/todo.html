@@ -1,13 +1,60 @@
-<html>
-    <head>
-        <title>Todo List</title>
-    </head>
-    <body>
-        <div>
-            <input type='text' name='todo_input'>
-            <button type='submit'>Add Todo</button>
-            <div class='todos'></div>
-        </div>
-    </body>
-    <script src='./script.js'></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .body {
+            display:flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        #pending{
+            text-align: center;
+        }  
+        #completed{
+            text-align: center;
+        }
+        p{
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+    <div id="pending">
+        <p>
+        <b>pending</b>
+    </p>
+    </div>
+    <div id="completed">
+        <p>
+        <b>completed</b>
+    </p>
+    </div>
+</div>
+</body>
+<script>
+    const responce = "https://jsonplaceholder.typicode.com/todos"
+    var completed = document.getElementById("completed")
+    var pending = document.getElementById("pending")
+    async function funcName(url){
+    const response = await fetch(url);
+    var data = await response.json();
+    for(var i=0;i<data.length;i++){
+        if(data[i].completed == false){
+            var p1 = document.createElement("p")
+            p1.innerHTML = data[i].title
+            pending.appendChild(p1)
+        }else{
+            var p2 = document.createElement("p")
+            p2.innerHTML = data[i].title
+            completed.appendChild(p2)
+        }
+    }
+    }
+    funcName(responce)   
+</script>
 </html>
